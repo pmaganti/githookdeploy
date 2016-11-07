@@ -17,12 +17,13 @@ handler.on('push', function (event) {
 	var data = event.payload;
 	var repo_name = data.repository.name;
 	
-	if(comps[2] != 'master') {
-              console.log('Received a push on %s and no build has is triggered', comps[2]);
-              return;
-        }
-        console.log('Received a push on production, build started...');
-exec('sh ./script.sh', {cwd: '/home/bitnami/apps/'+repo_name+''},function(error, stdout, stderr) {
+	//if(comps[2] == 'production') {
+        //      console.log('Received a push on %s and no build has is triggered', comps[2]);
+        //      return;
+        //}
+        console.log('Received a push on %s, build started...', comps[2]);
+	//Place the script.sh inside the project root where the auto deploy requires.
+        exec('sh ./script.sh', {cwd: '/home/bitnami/apps/'+repo_name+''},function(error, stdout, stderr) {
 //        exec('./../'+repo_name+'/script.sh', function(error, stdout, stderr) {
                 console.log(error,stderr,stdout);
                 if(error != null) {
